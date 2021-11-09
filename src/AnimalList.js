@@ -5,9 +5,9 @@ export default class AnimalList extends Component {
         const animals = [
             {type:'pas', name:'Dzeki', date: new Date('November 12, 2019')},
             {type:'macka', name:'Cico', date: new Date('December 15, 2015')},
-            {type:'papagaj', name:'Sima', date: new Date('January 25, 20018')},
+            {type:'papagaj', name:'Sima', date: null},
             {type:'konj', name:'Konjic', date: new Date('July 17, 2005')},
-            {type:'svinja', name:'Dzek', date: new Date('October 1, 2015')},
+            {type:'svinja', name:'Dzek', date: null},
         ];
 
         return(
@@ -26,7 +26,8 @@ export default class AnimalList extends Component {
                             <tr>
                                 <td>{item.type}</td>
                                 <td>{item.name}</td>
-                                <td>{item.date.toLocaleDateString()}</td>
+                                {/* #2 - ako nema datuma ispisi da je nepoznat   */}
+                                <td>{item.date ? (item.date.toLocaleDateString()) : ('Nepoznat')}</td>
                             </tr>
                           ))
                       }
