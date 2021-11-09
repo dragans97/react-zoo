@@ -1,15 +1,24 @@
-import React, { Component } from 'react';
+import React, { Component, useState} from 'react';
 
-export default class AnimalList extends Component {
-    render() {
-        const animals = [
-            {type:'pas', name:'Dzeki', date: new Date('November 12, 2019')},
-            {type:'macka', name:'Cico', date: new Date('December 15, 2015')},
-            {type:'papagaj', name:'Sima', date: null},
-            {type:'konj', name:'Konjic', date: new Date('July 17, 2005')},
-            {type:'svinja', name:'Dzek', date: null},
-        ];
+function AnimalList() {
+        // kada postavljas ovu vrednost, incijalna vrednost promenljive ide u useState([])
+           const [animals, setAnimals] = useState([
+            {id:1, type:'pas', name:'Dzeki', date: new Date('November 12, 2019')},
+            {id:2, type:'macka', name:'Cico', date: new Date('December 15, 2015')},
+            {id:3, type:'papagaj', name:'Sima', date: null},
+            {id:4, type:'konj', name:'Konjic', date: new Date('July 17, 2005')},
+            {id:5, type:'svinja', name:'Dzek', date: null},
+        ]);
+        
 
+        const removeElement = (elem) => {
+            // kako bi obrisali element, potrebno je da napravimo novi niz i njega prosledimo setAnimals
+            // i time postavimo novu vrednost niza odnosno isfiltriranu vrednost
+            const newAnimalsArr = animals.filter((animal) => animal.id !== elem.id);
+            setAnimals(newAnimalsArr);
+        };
+
+       
         return(
           <div>
               <table class="table">
@@ -18,6 +27,7 @@ export default class AnimalList extends Component {
                           <th>Vrsta</th>
                           <th>Ime</th>
                           <th>Datum rodjenja</th>
+                          <th>Akcija</th>
                       </tr>
                   </thead>
                   <tbody>
@@ -27,7 +37,11 @@ export default class AnimalList extends Component {
                                 <td>{item.type}</td>
                                 <td>{item.name}</td>
                                 {/* #2 - ako nema datuma ispisi da je nepoznat   */}
-                                <td>{item.date ? (item.date.toLocaleDateString()) : ('Nepoznat')}</td>
+                                <td>{item.date ? item.date.toLocaleDateString() : 'Nepoznat'}</td>
+                                <td>
+                                    {/* kako bih pozvao removeElement neophodno je da je pozovem preko callbacka */}
+                                    <button onClick={() => removeElement(item)} >Obrisi</button>
+                                </td>
                             </tr>
                           ))
                       }
@@ -36,5 +50,7 @@ export default class AnimalList extends Component {
               </table>
           </div>
         )
-      }
+      
 }
+
+export default AnimalList
