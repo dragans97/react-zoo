@@ -18,6 +18,13 @@ function AnimalList() {
             setAnimals(newAnimalsArr);
         };
 
+        const moveToTop = (elem) => {
+            // #4 kreiram novi niz bez njega i nadodam njega na pocetak preko unshift()
+            const newAnimalsArr = animals.filter((animal) => animal.id !== elem.id);
+            newAnimalsArr.unshift(elem);
+            setAnimals(newAnimalsArr);
+        }
+
        
         return(
           <div>
@@ -41,6 +48,7 @@ function AnimalList() {
                                 <td>
                                     {/* kako bih pozvao removeElement neophodno je da je pozovem preko callbacka */}
                                     <button onClick={() => removeElement(item)} >Obrisi</button>
+                                    <button onClick={() => moveToTop(item)}>Premesti na vrh</button>
                                 </td>
                             </tr>
                           ))
